@@ -214,7 +214,7 @@ public class GlossaCompiler {
         return new WordExpr(word);
     }
 
-    // Try loading: (GlossaCompiler/load (java.io.StringReader. \"(fn [] (+ (GlossaStack/peekPopMutable) (GlossaStack/peekPopMutable)))\"))
+    // Try loading: (GlossaCompiler/load (java.io.StringReader. \"(fn [] (+ (GlossaStack/popIt) (GlossaStack/popIt)))\"))
 
     public static Object load(Reader rdr) {
 	return load(rdr, null, "NO_SOURCE_FILE");

@@ -15,7 +15,7 @@ Here's a working example of adding things to the stack, defining a new word, and
 
 ;; Define the 'add' word.
 ;; Note how Clojure interop is seemless.
-(GlossaCompiler/load (StringReader. ": add [] (+ (GlossaStack/peekPopMutable) (GlossaStack/peekPopMutable)) ;"))
+(GlossaCompiler/load (StringReader. ": add [] (+ (GlossaStack/popIt) (GlossaStack/popIt)) ;"))
 
 ;; Evaluate the 'add' word
 (GlossaCompiler/load (StringReader. "add"))

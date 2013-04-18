@@ -53,12 +53,8 @@ public class GlossaStack {
      * 'pop', but I've reserved 'pop' to be used in accordance with
      * the Clojure idiom, which returns the remaining collection instead
      * of the item popped.
-     *
-     * Since it only makes sense to make this a mutable method, the "Mutable"
-     * suffix is redundant, but left for visual consistency with other
-     * mutable methods in this class.
      */
-    public static Object peekPopMutable() {
+    public static Object popIt() {
         IPersistentStack rawStack = (IPersistentStack) stackAtom.deref();
         Object item = rawStack.peek();
         // What was peeked above and what gets mutably popped below
