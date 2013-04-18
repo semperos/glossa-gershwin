@@ -5,7 +5,6 @@ import clojure.lang.IFn;
 import clojure.lang.IObj;
 import clojure.lang.IPersistentCollection;
 import clojure.lang.ISeq;
-import clojure.lang.LineNumberingPushbackReader;
 import clojure.lang.LispReader;
 import clojure.lang.Namespace;
 import clojure.lang.PersistentList;

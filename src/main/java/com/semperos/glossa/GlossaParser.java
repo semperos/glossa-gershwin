@@ -15,7 +15,6 @@
 package com.semperos.glossa;
 
 import clojure.lang.AFn;
-import clojure.lang.LineNumberingPushbackReader;
 import clojure.lang.LispReader;
 
 import java.io.IOException;
@@ -71,13 +70,14 @@ public class GlossaParser {
                         // System.out.println("Reading a Glossa Word definition...");
                         unread(r, ch2);
                         return new ColonReader().invoke(r, (char) ch);
+                    } else {
+                        unread(r, ch2);
                     }
-                } else {
-                    // Everything else is just Clojure.
-                    // System.out.println("Clojure Reader => " + (char) ch);
-                    unread(r, ch);
-                    return LispReader.read(r, eofIsError, eofValue, isRecursive);
                 }
+                // Everything else is just Clojure.
+                // System.out.println("Clojure Reader => " + (char) ch);
+                unread(r, ch);
+                return LispReader.read(r, eofIsError, eofValue, isRecursive);
             }
         } catch (Exception e) {
             if(isRecursive || !(r instanceof LineNumberingPushbackReader))

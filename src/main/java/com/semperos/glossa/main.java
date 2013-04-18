@@ -1,6 +1,5 @@
 package com.semperos.glossa;
 
-import clojure.lang.LineNumberingPushbackReader;
 import clojure.lang.LispReader;
 import clojure.lang.RT;
 import clojure.lang.SeqEnumeration;
@@ -15,7 +14,7 @@ public class main {
     private static final String REPL_PROMPT = "glossa.core> ";
 
     public static void main(String[] args) {
-	LineNumberingPushbackReader r = new LineNumberingPushbackReader(new InputStreamReader(System.in));
+	LineNumberingPushbackReader r = new LineNumberingPushbackReader(new InputStreamReader(System.in), 2);
 	OutputStreamWriter w = new OutputStreamWriter(System.out);
 	Object ret = null;
         // @todo Make sure clojure.core is available in glossa.core.
