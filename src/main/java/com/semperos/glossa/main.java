@@ -17,8 +17,7 @@ public class main {
 	LineNumberingPushbackReader r = new LineNumberingPushbackReader(new InputStreamReader(System.in), 2);
 	OutputStreamWriter w = new OutputStreamWriter(System.out);
 	Object ret = null;
-        // @todo Make sure clojure.core is available in glossa.core.
-        // @todo Work on how GlossaStack operations themselve affect the stack (e.g., seq())
+        // @todo Work on how GlossaStack operations themselves affect the stack (e.g., seq())
         GlossaRT.doInit();
         boolean firstPass = true;
 	try {
@@ -30,28 +29,25 @@ public class main {
                 }
                 int ch = LispReader.read1(r);
                 if (ch == 10) {
+                    if(!firstPass) {
+                        w.write("\n--- Data Stack:\n");
+                        SeqEnumeration iter = new SeqEnumeration(GlossaStack.seq());
+                        while (iter.hasMoreElements()) {
+                            RT.print(iter.nextElement(), w);
+                            // w.write(iter.nextElement().toString());
+                            w.write('\n');
+                        }
+                        // w.write(GlossaStack.seq().toString());
+                        w.write('\n');
+                        w.flush();
+                    }
                     w.write(REPL_PROMPT);
                     w.flush();
                 } else {
                     r.unread(ch);
                 }
-                // ret = GlossaCompiler.load(r);
                 ret = GlossaParser.read(r, true, null, false);
                 GlossaCompiler.eval(ret);
-                // RT.print(ret, w);
-                // w.write('\n');
-                // if(ret != null)
-                //     w.write(ret.getClass().toString());
-                w.write("\n--- Data Stack:\n");
-                SeqEnumeration iter = new SeqEnumeration(GlossaStack.seq());
-                while (iter.hasMoreElements()) {
-                    RT.print(iter.nextElement(), w);
-                    // w.write(iter.nextElement().toString());
-                    w.write('\n');
-                }
-                // w.write(GlossaStack.seq().toString());
-                w.write('\n');
-                w.flush();
             }
         }
 	catch(Exception e) {
