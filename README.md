@@ -10,7 +10,7 @@ lein run
 
 This will open up a Glossa REPL. Try out the following:
 
-```clj
+```
 glossa.core: 20
 
 --- Data Stack:
