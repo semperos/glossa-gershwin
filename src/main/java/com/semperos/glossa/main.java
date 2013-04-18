@@ -1,6 +1,7 @@
 package com.semperos.glossa;
 
 import clojure.lang.LineNumberingPushbackReader;
+import clojure.lang.LispReader;
 import clojure.lang.RT;
 import clojure.lang.SeqEnumeration;
 
@@ -20,10 +21,21 @@ public class main {
         // @todo Make sure clojure.core is available in glossa.core.
         // @todo Work on how GlossaStack operations themselve affect the stack (e.g., seq())
         GlossaRT.doInit();
+        boolean firstPass = true;
 	try {
             for(; ;) {
-                w.write(REPL_PROMPT);
-                w.flush();
+                if(firstPass) {
+                    w.write(REPL_PROMPT);
+                    w.flush();
+                    firstPass = false;
+                }
+                int ch = LispReader.read1(r);
+                if (ch == 10) {
+                    w.write(REPL_PROMPT);
+                    w.flush();
+                } else {
+                    r.unread(ch);
+                }
                 // ret = GlossaCompiler.load(r);
                 ret = GlossaParser.read(r, true, null, false);
                 GlossaCompiler.eval(ret);
@@ -34,7 +46,8 @@ public class main {
                 w.write("\n--- Data Stack:\n");
                 SeqEnumeration iter = new SeqEnumeration(GlossaStack.seq());
                 while (iter.hasMoreElements()) {
-                    w.write(iter.nextElement().toString());
+                    RT.print(iter.nextElement(), w);
+                    // w.write(iter.nextElement().toString());
                     w.write('\n');
                 }
                 // w.write(GlossaStack.seq().toString());
