@@ -11,7 +11,7 @@ import java.io.OutputStreamWriter;
  * Old-school debug REPL taken from commented-out Clojure main in LispReader
  */
 public class main {
-    private static final String REPL_PROMPT = "glossa.core: ";
+    private static final String REPL_PROMPT = "glossa.core> ";
 
     public static void main(String[] args) {
 	LineNumberingPushbackReader r = new LineNumberingPushbackReader(new InputStreamReader(System.in));

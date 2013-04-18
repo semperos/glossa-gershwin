@@ -11,44 +11,44 @@ lein run
 This will open up a Glossa REPL. Try out the following:
 
 ```
-glossa.core: 20
+glossa.core> 20
 
 --- Data Stack:
 20
 
-glossa.core: 22
-
---- Data Stack:
-20
-22
-
-glossa.core: : add [] (+ (GlossaStack/popIt) (GlossaStack/popIt)) ;
+glossa.core> 22
 
 --- Data Stack:
 20
 22
 
-glossa.core: add
+glossa.core> : add [] (+ (GlossaStack/popIt) (GlossaStack/popIt)) ;
+
+--- Data Stack:
+20
+22
+
+glossa.core> add
 
 --- Data Stack:
 42
 
-glossa.core: : add-2 [] 2 add ;
+glossa.core> : add-2 [] 2 add ;
 
 --- Data Stack:
 42
 
-glossa.core: add-2
+glossa.core> add-2
 
 --- Data Stack:
 44
 
-glossa.core: add-2 add-2
+glossa.core> add-2 add-2
 
 --- Data Stack:
 46
 
-glossa.core:
+glossa.core>
 --- Data Stack:
 48
 
