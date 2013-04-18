@@ -51,7 +51,26 @@ glossa.core> add-2 add-2
 glossa.core>
 --- Data Stack:
 48
+```
 
+How about Clojure ratios?
+
+```
+glossa.core> 1/3
+
+--- Data Stack:
+1/3
+
+glossa.core> 1/4
+
+--- Data Stack:
+1/3
+1/4
+
+glossa.core> add
+
+--- Data Stack:
+7/12
 ```
 
 ## Installation
