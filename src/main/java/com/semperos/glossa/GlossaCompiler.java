@@ -58,7 +58,7 @@ public class GlossaCompiler {
 
 	public Object eval() {
             Object clojureForm = clojure.lang.Compiler.eval(val(), false);
-            System.out.println("Clojure Evaluated: " + clojureForm.getClass().getName() + ", " + clojureForm);
+            // System.out.println("Clojure Evaluated: " + clojureForm.getClass().getName() + ", " + clojureForm);
             GlossaStack.conjMutable(clojureForm);
             return clojureForm;
 	}
@@ -110,13 +110,13 @@ public class GlossaCompiler {
          * {@link GlossaWord}.
          */
         public Object eval() {
-            System.out.println("COLON: " + l.getClass().getName() + ", " + (l instanceof ArrayList) + ", " + l);
+            // System.out.println("COLON: " + l.getClass().getName() + ", " + (l instanceof ArrayList) + ", " + l);
             Symbol name = (Symbol) this.l.get(0);
-            System.out.println("COLON NAME IS: " + name);
+            // System.out.println("COLON NAME IS: " + name);
             IPersistentCollection stackEffect = (IPersistentCollection) this.l.get(1);
-            System.out.println("COLON STACK EFFECT IS: " + stackEffect);
+            // System.out.println("COLON STACK EFFECT IS: " + stackEffect);
             List definition = this.l.subList(2, l.size());
-            System.out.println("COLON DEFINITION IS: " + definition);
+            // System.out.println("COLON DEFINITION IS: " + definition);
             GlossaWord word = new GlossaWord(stackEffect, definition);
             createVar(name, word);
             return word;
@@ -140,7 +140,7 @@ public class GlossaCompiler {
          *   things happen on the stack.
          */
         public Object eval() {
-            System.out.println("Eval'ing a GlossaWord");
+            // System.out.println("Eval'ing a GlossaWord");
             List wordDefinition = word.getDefinition();
             Object ret = null;
             Iterator iter = wordDefinition.iterator();
@@ -157,9 +157,9 @@ public class GlossaCompiler {
      * Currently uses Clojure to evaluate form. This eval
      */
     public static Object eval(Object form) {
-        System.out.println("Glossa Eval, raw form: " +
-                           form.getClass().getName() +
-                           ", " + form);
+        // System.out.println("Glossa Eval, raw form: " +
+        //                    form.getClass().getName() +
+        //                    ", " + form);
         // Object clojureForm = clojure.lang.Compiler.eval(form, false);
         Expr expr = analyze(form);
         return expr.eval();
@@ -167,16 +167,16 @@ public class GlossaCompiler {
 
     // @todo Make private
     public static Expr analyze(Object form) {
-        System.out.println("ANALYZE FORM: " + form.getClass().getName() + ", " + form);
+        // System.out.println("ANALYZE FORM: " + form.getClass().getName() + ", " + form);
         if(form instanceof IColonList) {
-            System.out.println("GLOSSA Word Definition: " + form);
+            // System.out.println("GLOSSA Word Definition: " + form);
             return analyzeColon((IColonList) form);
         } else if(form instanceof Symbol) {
             Object maybeVar = resolveClojure((Symbol) form);
             if(maybeVar instanceof Var) {
                 Var aVar = (Var) maybeVar;
                 if(aVar.isBound() && aVar.deref() instanceof GlossaWord) {
-                    System.out.println("You tried to use a Glossa word definition!");
+                    // System.out.println("You tried to use a Glossa word definition!");
                     return analyzeWord((GlossaWord) aVar.deref());
                 } else {
                     return new ClojureExpr(form);
@@ -210,7 +210,7 @@ public class GlossaCompiler {
      * Do something with an existing Glossa word definition.
      */
     public static Expr analyzeWord(GlossaWord word) {
-        System.out.println("ANALYZE WORD: " + word.getStackEffect() + ", " + word.getDefinition());
+        // System.out.println("ANALYZE WORD: " + word.getStackEffect() + ", " + word.getDefinition());
         return new WordExpr(word);
     }
 

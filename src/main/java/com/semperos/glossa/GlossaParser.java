@@ -68,13 +68,13 @@ public class GlossaParser {
                 if(ch == ':') {
                     int ch2 = LispReader.read1(r);
                     if(isWhitespace(ch2)){
-                        System.out.println("Reading a Glossa Word definition...");
+                        // System.out.println("Reading a Glossa Word definition...");
                         unread(r, ch2);
                         return new ColonReader().invoke(r, (char) ch);
                     }
                 } else {
                     // Everything else is just Clojure.
-                    System.out.println("Clojure Reader => " + (char) ch);
+                    // System.out.println("Clojure Reader => " + (char) ch);
                     unread(r, ch);
                     return LispReader.read(r, eofIsError, eofValue, isRecursive);
                 }
@@ -89,7 +89,7 @@ public class GlossaParser {
 
     public static class ColonReader extends AFn {
         public Object invoke(Object reader, Object colon) {
-            System.out.println("COLON READER!");
+            // System.out.println("COLON READER!");
             PushbackReader r = (PushbackReader) reader;
             return new ColonList(LispReader.readDelimitedList(';', r, false));
         }
