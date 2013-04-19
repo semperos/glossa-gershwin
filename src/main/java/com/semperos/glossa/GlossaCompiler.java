@@ -5,6 +5,7 @@ import clojure.lang.IFn;
 import clojure.lang.IObj;
 import clojure.lang.IPersistentCollection;
 import clojure.lang.ISeq;
+import clojure.lang.Keyword;
 import clojure.lang.LispReader;
 import clojure.lang.Namespace;
 import clojure.lang.PersistentList;
@@ -59,7 +60,8 @@ public class GlossaCompiler {
 	public Object eval() {
             Object clojureForm = clojure.lang.Compiler.eval(val(), false);
             // System.out.println("Clojure Evaluated: " + clojureForm.getClass().getName() + ", " + clojureForm);
-            GlossaStack.conjMutable(clojureForm);
+            if(!clojureForm.equals(GlossaRT.STACK_VOID))
+                GlossaStack.conjMutable(clojureForm);
             return clojureForm;
 	}
 
