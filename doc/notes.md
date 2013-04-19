@@ -19,7 +19,3 @@ High-level Clojure evaluation workflow:
     * The eval method does the type-specific evaluation of the form
     * The val method returns the value of the given expression. For String literals, for example, calling eval() is the same as calling val(), and val() is the same as returning the original String that was passed into the constructor for StringExpr.
     * The emit method encodes how to emit the given data structure as JVM bytecode. This is where, for example, String values are pushed onto the JVM stack.
-
-## Todos / Next Steps ##
-
-We want some auto-use of Clojure's namespacing facilities, since that's what we're using to keep track of things in our "dictionary" of "words." Use something like(.isBound (ClojureApi/var "clojure.core" "+")), with a convention like Glossa "primitives" being named something like "__glossa-" + name of Clojure "primitive" (+/-, for example, are implemented in Java).
