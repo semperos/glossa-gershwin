@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class GlossaCompiler {
+    static final String GLOSSA_VAR_PREFIX = "__GLS__";
     static final Symbol DEF = Symbol.intern("def");
     static final Symbol FN = Symbol.intern("fn");
 
@@ -110,14 +111,15 @@ public class GlossaCompiler {
          */
         public Object eval() {
             // System.out.println("COLON: " + l.getClass().getName() + ", " + (l instanceof ArrayList) + ", " + l);
-            Symbol name = (Symbol) this.l.get(0);
+            Symbol nameSym = (Symbol) this.l.get(0);
+            Symbol glossaName = Symbol.intern(GLOSSA_VAR_PREFIX + nameSym.getName());
             // System.out.println("COLON NAME IS: " + name);
             IPersistentCollection stackEffect = (IPersistentCollection) this.l.get(1);
             // System.out.println("COLON STACK EFFECT IS: " + stackEffect);
             List definition = this.l.subList(2, l.size());
             // System.out.println("COLON DEFINITION IS: " + definition);
             GlossaWord word = new GlossaWord(stackEffect, definition);
-            createVar(name, word);
+            createVar(glossaName, word);
             return word;
         }
     }
@@ -171,7 +173,9 @@ public class GlossaCompiler {
             // System.out.println("GLOSSA Word Definition: " + form);
             return analyzeColon((IColonList) form);
         } else if(form instanceof Symbol) {
-            Object maybeVar = resolveClojure((Symbol) form);
+            Symbol formSym = (Symbol) form;
+            String maybeVarName = formSym.getName();
+            Object maybeVar = resolveClojure(Symbol.intern(GLOSSA_VAR_PREFIX + maybeVarName));
             if(maybeVar instanceof Var) {
                 Var aVar = (Var) maybeVar;
                 if(aVar.isBound() && aVar.deref() instanceof GlossaWord) {
