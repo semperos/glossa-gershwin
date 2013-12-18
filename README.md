@@ -1,4 +1,4 @@
-# Glossa
+# Glossa (start of Gershwin)
 
 Clojure + stack-based language.
 
